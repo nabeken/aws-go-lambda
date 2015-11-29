@@ -1,0 +1,23 @@
+package main
+
+import (
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+)
+
+func handlePing(w http.ResponseWriter, r *http.Request) {
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "failed to read body", http.StatusBadRequest)
+		return
+	}
+
+	log.Println("body:", string(body))
+	fmt.Fprint(w, body)
+}
+
+func main() {
+	ServMain(http.HandlerFunc(handlePing))
+}
