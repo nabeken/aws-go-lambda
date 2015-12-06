@@ -19,7 +19,7 @@ func handlePing(w http.ResponseWriter, r *http.Request) {
 		log.Println("header:", n, v)
 	}
 
-	fmt.Fprint(w, body)
+	fmt.Fprint(w, string(body))
 }
 
 func main() {
