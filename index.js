@@ -44,13 +44,15 @@ function new_request(event) {
     req.on('error', function(err) {
       callback(err, null);
     });
-    req.write(JSON.stringify(event.body));
+    if (event.body) {
+      req.write(JSON.stringify(event.body));
+    }
     req.end();
   }
 }
 
 exports.handler = function(event, context) {
-  console.log("DEBUG: " + JSON.stringify(event.body));
+  console.log("DEBUG: " + JSON.stringify(event));
   async.retry({times: 3, interval: 200}, new_request(event), function(err, result) {
     if (err) {
       context.fail(err);
