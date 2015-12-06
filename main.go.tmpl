@@ -15,6 +15,10 @@ func handlePing(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Println("body:", string(body))
+	for n, v := range r.Header {
+		log.Println("header:", n, v)
+	}
+
 	fmt.Fprint(w, body)
 }
 
